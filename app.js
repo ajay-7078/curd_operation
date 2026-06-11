@@ -23,12 +23,8 @@ app.get('/read', async (req, res) => {
   }
 });
 app.get('/delete/:id', async (req, res) => {
-   try {
-      await userMOdel.findByIdAndDelete(req.params.id);
-      res.redirect('/read');
-   } catch (error) {
-      res.send("Error deleting user");
-   }
+let users = await userMOdel.findOneAndDelete({ _id: req.params.id });
+res.redirect('/read');
 });
 app.post('/create', async (req, res) => {
   const { name, email, image } = req.body;
